@@ -1,57 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
-// Replace with actual photos from @barber_shop_samokov_ Instagram
-// Recommended dimensions: at least 800x1000px (portrait) for best masonry effect
 const galleryItems = [
-  { id: 1, label: 'Skin Fade', category: 'Fade', aspect: 'tall' },
-  { id: 2, label: 'Класическа прическа', category: 'Classic', aspect: 'square' },
-  { id: 3, label: 'Skin Fade + Дизайн', category: 'Design', aspect: 'tall' },
-  { id: 4, label: 'Оформяне на брада', category: 'Beard', aspect: 'square' },
-  { id: 5, label: 'Mid Fade', category: 'Fade', aspect: 'tall' },
-  { id: 6, label: 'Текстурирана прическа', category: 'Classic', aspect: 'square' },
-  { id: 7, label: 'Дизайн — линии', category: 'Design', aspect: 'tall' },
-  { id: 8, label: 'Детска прическа', category: 'Classic', aspect: 'square' },
-  { id: 9, label: 'Taper Fade', category: 'Fade', aspect: 'tall' },
+  { id: 1, file: '0-02-05-358b5c212e7b2d89301ecccf8606e49b75b0aff573e7b039f9597c619b969925_1dbf503a55c48f.jpg', label: 'Прическа' },
+  { id: 2, file: '0-02-05-4ff5c842ec8a4a5349fcc2705c2cd7b104e7fe731e33d6a687e4903741bde2a3_1dbf503a562014.jpg', label: 'Прическа' },
+  { id: 3, file: '0-02-05-65a3477887b5cc94d25fd1909c736cc801f87dd705e3541a27c5cc78c565ed3f_1dbf503a561357.jpg', label: 'Прическа' },
+  { id: 4, file: '0-02-05-88cf144c4bd2c50e7900a2d98b74ba875f011475c4699750f2619c740895d5f4_1dbf503a55d466.jpg', label: 'Прическа' },
+  { id: 5, file: '0-02-05-a5e1410147229ec840c353614c4c8f4f5dd39cdb267af949a28e7ba94730557e_1dbf503a55b5ce.jpg', label: 'Прическа' },
+  { id: 6, file: '0-02-05-a6ce12fb4da596851ef7af6c8b1559b817abe48034b4d12e5e9cd0264e0ea499_1dbf503a566922.jpg', label: 'Прическа' },
+  { id: 7, file: '0-02-05-c12817823c9dea3b432352ebf107b3faf4d5bd2c7800715d99172828d5956fc6_1dbf503a55dbea.jpg', label: 'Прическа' },
 ]
-
-// Decorative SVG pattern for placeholder slots
-function PlaceholderPattern({ id, label, category }: { id: number; label: string; category: string }) {
-  const patterns: Record<string, string> = {
-    Fade: '#c9a84c22',
-    Classic: '#ffffff08',
-    Design: '#c9a84c15',
-    Beard: '#ffffff10',
-  }
-  const bg = patterns[category] || '#ffffff08'
-
-  return (
-    <div
-      className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4"
-      style={{ background: bg }}
-    >
-      {/* Scissors decorative icon */}
-      <svg className="w-10 h-10 text-gold/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-        <circle cx="6" cy="6" r="3"/>
-        <circle cx="6" cy="18" r="3"/>
-        <line x1="20" y1="4" x2="8.12" y2="15.88"/>
-        <line x1="14.47" y1="14.48" x2="20" y2="20"/>
-        <line x1="8.12" y1="8.12" x2="12" y2="12"/>
-      </svg>
-      <div className="text-center">
-        <p className="text-white/40 text-xs font-medium uppercase tracking-wider">{label}</p>
-        <p className="text-gold/40 text-xs mt-0.5">#{id.toString().padStart(2, '0')}</p>
-      </div>
-      {/* Replace comment */}
-      <p className="absolute bottom-2 left-2 right-2 text-center text-gray-600 text-[10px] leading-tight">
-        {/* Replace with actual photos from @barber_shop_samokov_ Instagram */}
-        📸 Добавете снимка тук
-      </p>
-    </div>
-  )
-}
 
 export default function Gallery() {
   const [lightboxId, setLightboxId] = useState<number | null>(null)
@@ -88,7 +49,7 @@ export default function Gallery() {
           </a>
         </motion.div>
 
-        {/* Masonry-style grid using CSS columns */}
+        {/* Masonry grid */}
         <div className="columns-2 md:columns-3 gap-4 space-y-4">
           {galleryItems.map((item, index) => (
             <motion.div
@@ -101,28 +62,23 @@ export default function Gallery() {
             >
               <button
                 onClick={() => setLightboxId(item.id)}
-                className={`relative w-full overflow-hidden rounded-xl bg-surface-2 border border-border hover:border-gold/40 transition-all duration-300 group block ${
-                  item.aspect === 'tall' ? 'aspect-[3/4]' : 'aspect-square'
-                }`}
-                aria-label={`Виж снимка: ${item.label}`}
+                className="relative w-full overflow-hidden rounded-xl bg-surface-2 border border-border hover:border-gold/40 transition-all duration-300 group block aspect-[3/4]"
+                aria-label={`Виж снимка ${item.id}`}
               >
-                {/* Replace with actual photos from @barber_shop_samokov_ Instagram */}
-                <PlaceholderPattern id={item.id} label={item.label} category={item.category} />
-
+                <Image
+                  src={`/images/${item.file}`}
+                  alt={`Barber Shop Samokov — ${item.label} ${item.id}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gold/90 rounded-full p-3">
                     <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
                     </svg>
                   </div>
-                </div>
-
-                {/* Category badge */}
-                <div className="absolute top-2 left-2">
-                  <span className="bg-black/60 text-gold text-xs px-2 py-0.5 rounded-full backdrop-blur-sm">
-                    {item.category}
-                  </span>
                 </div>
               </button>
             </motion.div>
@@ -173,7 +129,6 @@ export default function Gallery() {
               className="relative max-w-lg w-full mx-4"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close button */}
               <button
                 onClick={() => setLightboxId(null)}
                 className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors z-10"
@@ -186,10 +141,15 @@ export default function Gallery() {
 
               <div className="relative aspect-[3/4] bg-surface-2 rounded-xl overflow-hidden border border-border">
                 {current && (
-                  <PlaceholderPattern id={current.id} label={current.label} category={current.category} />
+                  <Image
+                    src={`/images/${current.file}`}
+                    alt={`Barber Shop Samokov — ${current.label}`}
+                    fill
+                    className="object-cover"
+                    sizes="512px"
+                  />
                 )}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <p className="text-white font-medium">{current?.label}</p>
                   <p className="text-gold text-sm">@barber_shop_samokov_</p>
                 </div>
               </div>
@@ -199,8 +159,7 @@ export default function Gallery() {
                 <button
                   onClick={() => {
                     const idx = galleryItems.findIndex((g) => g.id === lightboxId)
-                    const prev = galleryItems[(idx - 1 + galleryItems.length) % galleryItems.length]
-                    setLightboxId(prev.id)
+                    setLightboxId(galleryItems[(idx - 1 + galleryItems.length) % galleryItems.length].id)
                   }}
                   className="text-white/50 hover:text-gold transition-colors p-2"
                   aria-label="Предишна"
@@ -215,8 +174,7 @@ export default function Gallery() {
                 <button
                   onClick={() => {
                     const idx = galleryItems.findIndex((g) => g.id === lightboxId)
-                    const next = galleryItems[(idx + 1) % galleryItems.length]
-                    setLightboxId(next.id)
+                    setLightboxId(galleryItems[(idx + 1) % galleryItems.length].id)
                   }}
                   className="text-white/50 hover:text-gold transition-colors p-2"
                   aria-label="Следваща"

@@ -36,15 +36,23 @@ export default function Hero() {
       <div className="absolute top-2/3 right-1/4 w-1 h-1 rounded-full bg-gold/25" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
+        {/* Logo / brand name */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-2 border border-gold/30 bg-gold/5 rounded-full px-4 py-1.5 text-gold text-sm font-medium mb-8"
+          className="flex items-center justify-center gap-3 mb-8"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          Самоков — рейтинг 4.8 / 5 ★
+          <svg className="w-7 h-7 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="6" cy="6" r="3"/>
+            <circle cx="6" cy="18" r="3"/>
+            <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+            <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+            <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+          </svg>
+          <span className="text-white font-bold text-xl tracking-[0.25em] uppercase">
+            BARBER <span className="text-gold">SAMOKOV</span>
+          </span>
         </motion.div>
 
         {/* Main heading */}
