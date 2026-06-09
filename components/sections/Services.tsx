@@ -1,8 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef } from 'react'
 
 const services = [
   {
@@ -13,7 +11,7 @@ const services = [
     ),
     nameBg: 'Подстригване',
     nameEn: 'Haircut',
-    priceBgv: 15,
+    price: 8,
     description: 'Класическо подстригване с финален стайлинг',
   },
   {
@@ -25,7 +23,7 @@ const services = [
     ),
     nameBg: 'Подстригване + Оформяне на брада',
     nameEn: 'Haircut + Beard Styling',
-    priceBgv: 22,
+    price: 11,
     description: 'Пълен груминг пакет — прическа и брада',
   },
   {
@@ -37,7 +35,7 @@ const services = [
     ),
     nameBg: 'Оформяне на брада',
     nameEn: 'Beard Grooming',
-    priceBgv: 10,
+    price: 5,
     description: 'Прецизно оформяне и подреждане на брада',
   },
   {
@@ -52,7 +50,7 @@ const services = [
     ),
     nameBg: 'Skin Fade',
     nameEn: 'Skin Fade',
-    priceBgv: 18,
+    price: 9,
     description: 'Плавен преход до нула — модерен и чист стил',
     featured: true,
   },
@@ -64,7 +62,7 @@ const services = [
     ),
     nameBg: 'Skin Fade + Дизайн',
     nameEn: 'Skin Fade + Design',
-    priceBgv: 25,
+    price: 13,
     description: 'Skin fade с персонализиран дизайн — уникален стил',
     featured: true,
   },
@@ -76,14 +74,12 @@ const services = [
     ),
     nameBg: 'Детско подстригване',
     nameEn: "Children's Haircut",
-    priceBgv: 12,
+    price: 6,
     description: 'Внимателна прическа за деца до 12 год.',
   },
 ]
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
-  const euroPrice = (service.priceBgv * 0.51).toFixed(2)
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -110,10 +106,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       <p className="text-gray-500 text-xs mb-3 uppercase tracking-wider">{service.nameEn}</p>
       <p className="text-gray-400 text-sm mb-4 leading-relaxed">{service.description}</p>
 
-      <div className="flex items-baseline gap-2">
-        <span className="text-gold font-bold text-2xl">{service.priceBgv} лв.</span>
-        <span className="text-gray-500 text-sm">/ ~{euroPrice} €</span>
-      </div>
+      <span className="text-gold font-bold text-2xl">{service.price} €</span>
     </motion.div>
   )
 }
@@ -145,17 +138,6 @@ export default function Services() {
             <ServiceCard key={service.nameBg} service={service} index={index} />
           ))}
         </div>
-
-        {/* Price note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center text-gray-500 text-sm"
-        >
-          * Цените са ориентировъчни. 1 лв. ≈ 0.51 €
-        </motion.p>
 
         {/* CTA */}
         <motion.div

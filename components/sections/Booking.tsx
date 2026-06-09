@@ -4,12 +4,12 @@ import { useState, FormEvent } from 'react'
 import { motion } from 'framer-motion'
 
 const services = [
-  'Подстригване — 15 лв.',
-  'Подстригване + Оформяне на брада — 22 лв.',
-  'Оформяне на брада — 10 лв.',
-  'Skin Fade — 18 лв.',
-  'Skin Fade + Дизайн — 25 лв.',
-  'Детско подстригване — 12 лв.',
+  'Подстригване — 8 €',
+  'Подстригване + Оформяне на брада — 11 €',
+  'Оформяне на брада — 5 €',
+  'Skin Fade — 9 €',
+  'Skin Fade + Дизайн — 13 €',
+  'Детско подстригване — 6 €',
 ]
 
 // Generate time slots 11:00 – 19:00 in 30-min intervals
